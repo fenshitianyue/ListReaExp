@@ -6,10 +6,12 @@
  * 1. 规定只能表达式只能计算+/-运算
  * 2. 规定常数项的次数只能是1
 */
+
+//封装表达式项类型
 typedef struct {
-  char _ch;
-  int _num;
-  int _power;
+  char _ch;//常/变量标志
+  int _num;//系数
+  int _power;//次数
 }item;
 
 void CreatExp(PNode* exp);
@@ -25,7 +27,7 @@ void DestroyExp(PNode* head){
   ListDestroy(head);
 }
 
-//取反
+//给每一项的系数乘以-1
 void Opposite(PNode* list){
   PNode tmp = *list; 
   while(tmp != NULL){
@@ -102,9 +104,11 @@ PNode ExpressionAdd(PNode list1, PNode list2){
 //减法
 PNode ExpressionSub(PNode list1, PNode list2){
   Opposite(&list2);
-  return ExpressionAdd(list1, list2);
+  PNode result = ExpressionAdd(list1, list2);
+  return result;
 }
 
+//创建表达式
 void CreatExp(PNode* exp){
   int m = 0; //表示表达式的项数
   ListInit(exp);
@@ -139,8 +143,8 @@ void test1() {
   ListAdd(&list_2, 1, 'x', 2);
   ListAdd(&list_2, 12, '#', 1);
   ExpressionPrint(list_2);
-  PNode result1 = ExpressionSub(list_1, list_2);
-  PNode result2 = ExpressionAdd(list_1, list_2);
+  PNode result1 = ExpressionAdd(list_1, list_2);
+  PNode result2 = ExpressionSub(list_1, list_2);
   ExpressionPrint(result1);
   ExpressionPrint(result2);
 }
