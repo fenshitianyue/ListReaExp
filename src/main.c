@@ -6,9 +6,19 @@
  * 1. 规定只能表达式只能计算+/-运算
  * 2. 规定常数项的次数只能是1
 */
+typedef struct {
+  char _ch;
+  int _num;
+  int _power;
+}item;
 
-//建立
 void CreatExp(PNode* exp);
+void Opposite(PNode* list);
+void ExpressionPrint(PNode list);
+void DestroyExp(PNode* head);
+PNode ExpressionAdd(PNode list1, PNode list2);
+PNode ExpressionSub(PNode list1, PNode list2);
+
 //销毁
 void DestroyExp(PNode* head){
   assert(head); 
@@ -95,12 +105,6 @@ PNode ExpressionSub(PNode list1, PNode list2){
   return ExpressionAdd(list1, list2);
 }
 
-typedef struct {
-  char _ch;
-  int _num;
-  int _power;
-}item;
-
 void CreatExp(PNode* exp){
   int m = 0; //表示表达式的项数
   ListInit(exp);
@@ -120,7 +124,7 @@ void CreatExp(PNode* exp){
   }
 }
 
-//测试用例
+//测试用例1
 void test1() {
   PNode list_1;
   ListInit(&list_1);
@@ -135,8 +139,10 @@ void test1() {
   ListAdd(&list_2, 1, 'x', 2);
   ListAdd(&list_2, 12, '#', 1);
   ExpressionPrint(list_2);
-  PNode result = ExpressionSub(list_1, list_2);
-  ExpressionPrint(result);
+  PNode result1 = ExpressionSub(list_1, list_2);
+  PNode result2 = ExpressionAdd(list_1, list_2);
+  ExpressionPrint(result1);
+  ExpressionPrint(result2);
 }
 
 int main(){
