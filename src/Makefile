@@ -1,5 +1,5 @@
 main:main.c
-	gcc $^ -o $@ -L. -lmylist 
+	gcc $^ -o $@ -L. -lmylist -std=c99
 
 .PHONY:clean
 clean:
