@@ -6,6 +6,24 @@
  * 2. 规定常数项的次数只能是1
 */
 
+//建立
+void CreatExp(PNode* exp);
+//销毁
+void DestroyExp(PNode* head){
+  assert(head); 
+  ListDestroy(head);
+}
+
+//取反
+void Opposite(PNode* list){
+
+}
+
+//减法
+void ExpressionSub(){
+
+}
+
 //输出
 void ExpressionPrint(PNode list){
   assert(list);
@@ -71,23 +89,31 @@ PNode ExpressionAdd(PNode list1, PNode list2){
   return new_list;
 }
 
-//建立
-void CreatExp(){
+typedef struct {
+  char _ch;
+  int _num;
+  int _power;
+}item;
 
+void CreatExp(PNode* exp){
+  int m = 0; //表示表达式的项数
+  ListInit(exp);
+  printf("输入表达式的相数:");
+  scanf("%d", &m);
+  item tmp;
+  for(int i = 0; i < m; ++i){
+    printf("输入第%d项的系数:", i + 1);
+    scanf("%d", &tmp._num);
+    printf("输入第%d项的变量(常数项则输入#):", i + 1);
+    scanf("%c", &tmp._ch);
+    printf("输入第%d项的次方:", i + 1);
+    scanf("%d", &tmp._power);
+    ListAdd(exp, tmp._num, tmp._ch, tmp._power);
+  }
 }
-//销毁
-void DestroyExp(PNode* head){
-  assert(head); 
-  ListDestroy(head);
-}
-//减法
-void ExpressionSub(){
-
-}
-
 
 //测试用例
-int main() {
+void test1() {
   PNode list_1;
   ListInit(&list_1);
   ListAdd(&list_1, 3, 'x', 29);
@@ -103,5 +129,11 @@ int main() {
   ExpressionPrint(list_2);
   PNode result = ExpressionAdd(list_1, list_2);
   ExpressionPrint(result);
+}
+
+int main(){
+  PNode exp;
+  CreatExp(&exp);
+  ExpressionPrint(exp);
   return 0;
 }
