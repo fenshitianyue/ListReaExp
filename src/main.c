@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "mylist.c"
+#include <assert.h>
+#include "mylist.h"
 
 /*
  * 1. 规定只能表达式只能计算+/-运算
@@ -16,12 +17,11 @@ void DestroyExp(PNode* head){
 
 //取反
 void Opposite(PNode* list){
-
-}
-
-//减法
-void ExpressionSub(){
-
+  PNode tmp = *list; 
+  while(tmp != NULL){
+    tmp->_elem = -tmp->_elem;
+    tmp = tmp->_next;
+  }
 }
 
 //输出
@@ -89,6 +89,12 @@ PNode ExpressionAdd(PNode list1, PNode list2){
   return new_list;
 }
 
+//减法
+PNode ExpressionSub(PNode list1, PNode list2){
+  Opposite(&list2);
+  return ExpressionAdd(list1, list2);
+}
+
 typedef struct {
   char _ch;
   int _num;
@@ -98,14 +104,16 @@ typedef struct {
 void CreatExp(PNode* exp){
   int m = 0; //表示表达式的项数
   ListInit(exp);
-  printf("输入表达式的相数:");
+  printf("输入表达式的项数:");
   scanf("%d", &m);
   item tmp;
   for(int i = 0; i < m; ++i){
     printf("输入第%d项的系数:", i + 1);
     scanf("%d", &tmp._num);
+    scanf("%*[^\n]");scanf("%*c");
     printf("输入第%d项的变量(常数项则输入#):", i + 1);
     scanf("%c", &tmp._ch);
+    scanf("%*[^\n]");scanf("%*c");
     printf("输入第%d项的次方:", i + 1);
     scanf("%d", &tmp._power);
     ListAdd(exp, tmp._num, tmp._ch, tmp._power);
@@ -127,13 +135,11 @@ void test1() {
   ListAdd(&list_2, 1, 'x', 2);
   ListAdd(&list_2, 12, '#', 1);
   ExpressionPrint(list_2);
-  PNode result = ExpressionAdd(list_1, list_2);
+  PNode result = ExpressionSub(list_1, list_2);
   ExpressionPrint(result);
 }
 
 int main(){
-  PNode exp;
-  CreatExp(&exp);
-  ExpressionPrint(exp);
+  test1();
   return 0;
 }
