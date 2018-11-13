@@ -40,12 +40,13 @@ int ListDel(PNode *head){
   }
   PNode tmp = *head;
   PNode tmp_pre;
-  while(tmp->_next != NULL){
+  while(tmp != NULL){
     tmp_pre = tmp;
     tmp = tmp->_next;
   }
   tmp_pre->_next = NULL;
   free(tmp);
+  tmp = NULL;
   return 1;
 }
 //查找
@@ -88,8 +89,11 @@ void ListPrint(const PNode head){
     tmp = tmp->_next;
   }
 }
-
-
-
-
+//销毁
+void ListDestroy(PNode* head){
+  if(NULL == head || NULL == *head) return;
+  while(*head != NULL){
+    ListDel(head);
+  } 
+}
 

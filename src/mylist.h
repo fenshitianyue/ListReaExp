@@ -27,6 +27,9 @@ PNode ListFind(const PNode head, DataType elem);
 //输出
 void ListPrint(const PNode head);
 
+//销毁
+void ListDestroy(PNode* head);
+
 
 
 
