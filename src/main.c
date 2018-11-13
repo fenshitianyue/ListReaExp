@@ -4,8 +4,9 @@
 /*
  * 1. 规定只能表达式只能计算+/-运算
  * 2. 规定常数项的次数只能是1
- */
+*/
 
+//输出
 void ExpressionPrint(PNode list){
   assert(list);
   PNode tmp = list;
@@ -28,13 +29,10 @@ void ExpressionPrint(PNode list){
   printf("\n");
 }
 
+//加法
 PNode ExpressionAdd(PNode list1, PNode list2){
-  if(list1 == NULL){
-    return list2;
-  }
-  if(list2 == NULL){
-    return list1;
-  }
+  if(list1 == NULL) return list2;
+  if(list2 == NULL) return list1;
   //拿着链表1中的项遍历链表2中的项
   PNode tmp1 = list1;
   PNode tmp2 = list2;
@@ -72,6 +70,21 @@ PNode ExpressionAdd(PNode list1, PNode list2){
   }//end while(tmp2 != NULL)
   return new_list;
 }
+
+//建立
+void CreatExp(){
+
+}
+//销毁
+void DestroyExp(PNode* head){
+  assert(head); 
+  ListDestroy(head);
+}
+//减法
+void ExpressionSub(){
+
+}
+
 
 //测试用例
 int main() {
